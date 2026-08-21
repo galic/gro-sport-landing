@@ -1,0 +1,25 @@
+{
+  "name": "gro-sport-landing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "node --env-file=.env ./deploy.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/galic/gro-sport-landing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/galic/gro-sport-landing/issues"
+  },
+  "homepage": "https://github.com/galic/gro-sport-landing#readme",
+  "devDependencies": {
+    "node-scp": "^0.0.25"
+  }
+}
