@@ -29,6 +29,9 @@ async function send_folder_using_async_await(folder_path, destination_path) {
         //     console.log('Remove folder ' + detination_folder_path)
         //     await client.rmdir(detination_folder_path)
         // }
+        //очистка папки
+        await client.emptyDir(detination_folder_path)
+        
         console.log('Deploy folder from ' + local_folder_path)
 
         await client.uploadDir(folder_path, destination_path)
