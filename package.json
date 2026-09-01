@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "node --env-file=.env ./deploy.js"
+    "deploy": "node --env-file=.env ./deploy.js",
+    "run-local": "npx http-server -p 8090"
   },
   "repository": {
     "type": "git",
