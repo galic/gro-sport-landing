@@ -632,10 +632,12 @@ p {
   transform: scale(1.06);
 }
 
+/*
 .team__photo--wide {
   grid-row: span 2;
   min-height: 380px;
 }
+*/
 
 .team__photo:not(.team__photo--wide) {
   min-height: 183px;
