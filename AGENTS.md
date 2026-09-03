@@ -10,15 +10,15 @@
 
 ## Принятые решения (согласовано с клиентом)
 1. **Стек:** статичный HTML/CSS/JS (без сборки и фреймворков)
-2. **Медиа:** реальные фото с gro-sport.ru (загружены локально в `images/`)
-3. **Форма:** реальный бэкенд на PHP 8 (валидация + маска телефона + отправка через `fetch` в `api/send-lead.php`, хранение в SQLite с фолбэком на JSON-лог, уведомление на email)
+2. **Медиа:** реальные фото с gro-sport.ru (загружены локально в `www/images/`)
+3. **Форма:** реальный бэкенд на PHP 8 (валидация + маска телефона + отправка через `fetch` в `www/api/send-lead.php`, хранение в SQLite с фолбэком на JSON-лог, уведомление на email)
 4. **Контакты:** реальные данные с gro-sport.ru
 
 ## Брендинг GroSport (из stylesheet.css gro-sport.ru)
-- Фон: чёрный `#000`, тёмные `#111`/`#1a1a1a`/`#222`
+- Фон: чёрный `#000`, тёмные `#0e0e0e`/`#1a1a1a`/`#242424`
 - Акцент жёлтый: `#fece1a`
 - Красный акцент: `#bd1815`
-- Шрифт: Open Sans (Google Fonts)
+- Шрифт: Inter (текст), Montserrat (заголовки) — Google Fonts
 
 ## Реальные данные клиента
 - Телефон: +7 (922) 181-08-81 (`tel:+79221810881`)
@@ -29,19 +29,30 @@
 - Анкета в команду: https://vk.com/grosport_skiteam
 
 ## Структура файлов
-- `index.html` — страница (секции по шаблону mydeviclub.ru)
-- `css/style.css` — тёмная тема, Open Sans, переменные в `:root`
-- `js/main.js` — hero-слайдер (автопрокрутка 6с), слайдер отзывов, мобильное меню, reveal-анимации (IntersectionObserver), маска телефона, валидация формы
-- `api/send-lead.php` — бэкенд заявок: POST JSON-приём, honeypot-antibot, rate-limit по IP, валидация, SQLite (фолбэк — JSON-лог), email-уведомление через `mail()`
-- `api/config.php` — настройки бэкенда (email получателя/отправителя, лимиты, пути)
-- `data/` — хранилище заявок (`leads.sqlite` и/или `leads.json`), защищено `.htaccess`
-- `images/` — 18 локальных изображений с gro-sport.ru
+```
+gro-sport-landing/
+├── AGENTS.md            — этот файл
+├── package.json         — Node.js: скрипты deploy/run-local, devDeps (node-scp)
+├── deploy.js            — SCP-деплой папки www/ на хостинг grosport.ru
+├── .gitignore           — игнорирует node_modules, .env, build
+├── www/                 — всё, что отдаётся как сайт
+│   ├── index.html       — страница (секции по шаблону mydeviclub.ru)
+│   ├── css/style.css    — тёмная тема, Inter/Montserrat, переменные в :root
+│   ├── js/main.js       — hero-слайдер (автопрокрутка 6с), слайдер отзывов, мобильное меню, reveal-анимации (IntersectionObserver), маска телефона, валидация формы
+│   ├── api/
+│   │   ├── send-lead.php — бэкенд заявок: POST JSON-приём, honeypot-antibot, rate-limit по IP, валидация, SQLite (фолбэк — JSON-лог), email-уведомление через mail()
+│   │   ├── config.php    — настройки бэкенда (email получателя/отправителя, лимиты, пути)
+│   │   └── .htaccess     — запрет доступа к api/ снаружи
+│   ├── data/             — хранилище заявок (leads.sqlite, rate-*.json), защищено .htaccess
+│   └── images/           — 23 локальных изображения с gro-sport.ru
+└── node_modules/         — (git-ignored) node-scp для деплоя
+```
 
 ## Секции лендинга (по порядку)
 1. Хедер (фикс., лого, телефон, меню, CTA)
 2. Hero-слайдер (5 слайдов, оффер + CTA)
-3. Жёлтая полоса офферов (пробная тренировка 500 ₽, база 24/7)
-4. О клубе + статистика (35+ спортсменов, 1-е место УрФО)
+3. Promo-полоса (круглый год, база 24/7, разные уровни)
+4. О клубе + статистика (35+ спортсменов, 4 про-спортсмена, 7 направлений, 1-е место УрФО)
 5. Направления (8 карточек)
 6. Марафонская команда (галерея, преимущества, анкета в VK)
 7. Абонементы лыжной школы (8 цен от 500 ₽ до 13 000 ₽)
@@ -53,17 +64,23 @@
 13. Форма заявки
 14. Футер (контакты, соцсети, меню)
 
+## Скрипты (package.json)
+- `npm run run-local` — запуск локального сервера (http-server на `www/`)
+- `npm run deploy` — SCP-деплой `www/` на хостинг (нужен `.env` с SCP_HOST, SCP_PORT, SCP_USER, SCP_PASSWORD)
+- Деплой пишет в `/home/c75424/grosport.ru/www`
+
 ## Проверка / запуск
-- Статический сервер: `npx http-server -p 8090` (или просто открыть index.html)
-- PHP 8: `php -S 127.0.0.1:8093 -t .` — форма работает через `api/send-lead.php`
-- Проверки пройдены: `node --check js/main.js` (JS OK), `php -l api/send-lead.php` / `api/config.php` (PHP OK), все 18 изображений существуют, HTTP 200 для html/css/js
-- Локальный PHP без `pdo_sqlite` — заявки пишутся в `data/leads.json`; на shared-хостинге с SQLite создаётся `data/leads.sqlite` (таблица `leads` создаётся автоматически)
+- Локальный сервер: `npm run run-local` (или `npx http-server ./www`)
+- PHP 8: `php -S 127.0.0.1:8093 -t www` — форма работает через `www/api/send-lead.php`
+- Проверки пройдены: `node --check js/main.js` (JS OK), `php -l api/send-lead.php` / `api/config.php` (PHP OK), все 23 изображения существуют
+- Локальный PHP без `pdo_sqlite` — заявки пишутся в `www/data/leads.json`; на shared-хостинге с SQLite создаётся `www/data/leads.sqlite` (таблица `leads` создаётся автоматически)
 
 ## Настройка бэкенда перед деплоем
-- Email получателя: `api/config.php` → `email_to` (сейчас `info@gro-sport.ru`)
+- Email получателя: `www/api/config.php` → `email_to` (сейчас `info@grosport.ru`)
 - Отправка писем через `mail()` — нужен настроенный на хостинге SMTP/sendmail; если письма уходят в спам, настроить SPF/DKIM для домена отправителя
-- `data/` и `api/config.php` закрыты `.htaccess` (Apache); на nginx закрыть аналогично в конфиге
+- `www/data/` и `www/api/` закрыты `.htaccess` (Apache); на nginx закрыть аналогично в конфиге
 - Rate-limit: по умолчанию 5 заявок/час с одного IP; honeypot-поле `website` в форме автоматически обманывает ботов
+- Деплой: создать `.env` в корне проекта с переменными SCP_HOST, SCP_PORT, SCP_USER, SCP_PASSWORD
 
 ## TODO / возможные доработки
 - Заменить отзывы-заглушки на реальные
