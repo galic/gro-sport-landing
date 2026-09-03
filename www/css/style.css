@@ -562,9 +562,16 @@ p {
 }
 
 .direction-card__icon {
-  font-size: 34px;
-  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 18px;
+}
+
+.direction-card__icon img {
+  width: 50%;
+  height: auto;
+  object-fit: contain;
 }
 
 .direction-card__title {
