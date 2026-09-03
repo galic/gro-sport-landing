@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "node --env-file=.env ./deploy.js",
-    "run-local": "npx http-server ./www"
+    "run-local": "npx http-server ./www -o"
   },
   "repository": {
     "type": "git",
