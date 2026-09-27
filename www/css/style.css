@@ -849,6 +849,30 @@ p {
   color: var(--gray);
 }
 
+/* Контейнер карточки преимущества */
+.usp-card {
+  transition: transform 0.3s ease;
+}
+
+/* Стили для самой SVG иконки */
+.usp-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: inline-block;
+}
+
+/* Анимация при наведении на карточку */
+.usp-card:hover .usp-icon {
+  transform: scale(1.1) translateY(-5px);
+}
+
+/* Плавное изменение цвета акцентных деталей при наведении */
+.usp-card:hover svg g[stroke="#FF6B35"] {
+  stroke: #E11D48; /* Меняем оранжевый на насыщенный красный при наведении */
+  transition: stroke 0.3s ease;
+}
 /* ==========================================================================
    QUOTE
    ========================================================================== */
@@ -1391,7 +1415,7 @@ p {
     top: 72px;
     left: 0;
     right: 0;
-    bottom: 0;
+    /* bottom: 0; */
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
