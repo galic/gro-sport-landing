@@ -78,36 +78,13 @@
 
   restart();
 
-  /* ---------- Отзывы: слайдер ---------- */
-  var track = document.getElementById('reviewTrack');
-  var reviewIndex = 0;
-  var reviewCount = track ? track.children.length : 0;
-
-  if (reviewCount > 1) {
-    function moveReviews() {
-      track.style.transform = 'translateX(-' + reviewIndex * 100 + '%)';
-    }
-    document.getElementById('nextReview').addEventListener('click', function () {
-      reviewIndex = (reviewIndex + 1) % reviewCount;
-      moveReviews();
-    });
-    document.getElementById('prevReview').addEventListener('click', function () {
-      reviewIndex = (reviewIndex - 1 + reviewCount) % reviewCount;
-      moveReviews();
-    });
-    setInterval(function () {
-      reviewIndex = (reviewIndex + 1) % reviewCount;
-      moveReviews();
-    }, 7000);
-  }
-
   /* ---------- Reveal-анимация при скролле ---------- */
   var revealBlocks = document.querySelectorAll('.section, .promo, .quote');
   revealBlocks.forEach(function (el) { el.classList.add('reveal'); });
 
   var revealItems = document.querySelectorAll(
     '.promo__item, .stat-card, .direction-card, .team__photo, .benefit, ' +
-    '.price-card, .event-card, .review, .partners__logo'
+    '.price-card, .why-card'
   );
   var STAGGER = 80;
   var MAX_DELAY = 400;
@@ -246,5 +223,16 @@
       submitBtn.textContent = 'Отправить заявку';
       setTimeout(function () { success.hidden = true; }, 6000);
     });
+  });
+
+  /* ---------- Авто-зима/лето: переключение картинок в ценах ---------- */
+  var month = new Date().getMonth();
+  var isWinter = month >= 9 || month <= 3;
+  var priceImgs = document.querySelectorAll('.price-card__img[data-winter]');
+  priceImgs.forEach(function (img) {
+    var winterSrc = img.getAttribute('data-winter');
+    if (isWinter && winterSrc) {
+      img.setAttribute('src', winterSrc);
+    }
   });
 })();
