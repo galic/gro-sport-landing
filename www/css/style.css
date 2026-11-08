@@ -632,6 +632,122 @@ p {
 }
 
 /* ==========================================================================
+   TRAINERS
+   ========================================================================== */
+.trainers {
+  background: var(--dark);
+  background-image: radial-gradient(ellipse 70% 50% at 80% 0%, rgba(254, 206, 26, 0.06), transparent);
+}
+
+.trainers__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.trainer-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--dark-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trainer-card:hover {
+  border-color: var(--yellow);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.trainer-card__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.trainer-card__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+}
+
+.trainer-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 16%;
+  transition: transform 0.6s var(--ease);
+}
+
+.trainer-card:hover .trainer-card__photo img {
+  transform: scale(1.05);
+}
+
+.trainer-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 22px 26px;
+}
+
+.trainer-card__name {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.trainer-card__role {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 18px;
+}
+
+.trainer-card__list {
+  display: grid;
+  gap: 8px;
+  flex: 1;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.trainer-card__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+.trainer-card__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.trainer-card__link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--yellow);
+}
+
+.trainer-card__link:hover {
+  color: var(--yellow-dark);
+}
+
+/* ==========================================================================
    TEAM
    ========================================================================== */
 .team {
@@ -1220,7 +1336,20 @@ p {
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 1100px) {
+  .nav__link {
+    padding: 10px 10px;
+    font-size: 14px;
+  }
+
+  .header__phone {
+    display: none;
+  }
+
   .directions__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trainers__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1314,6 +1443,10 @@ p {
   }
 
   .directions__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trainers__grid {
     grid-template-columns: 1fr;
   }
 

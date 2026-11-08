@@ -83,7 +83,7 @@
   revealBlocks.forEach(function (el) { el.classList.add('reveal'); });
 
   var revealItems = document.querySelectorAll(
-    '.promo__item, .stat-card, .direction-card, .team__photo, .benefit, ' +
+    '.promo__item, .stat-card, .direction-card, .trainer-card, .team__photo, .benefit, ' +
     '.price-card, .why-card'
   );
   var STAGGER = 80;
