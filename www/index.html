@@ -36,7 +36,23 @@
       </nav>
 
       <div class="header__actions">
-        <a href="tel:+79221810881" class="header__phone">+7 (922) 181-08-81</a>
+        <div class="header__contacts">
+          <a href="tel:+79221810881" class="header__phone">+7 (922) 181-08-81</a>
+
+          <div class="city-select" id="citySelect">
+            <button type="button" class="header__city" id="citySelectToggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="citySelectList" title="Выбрать филиал">
+              <span>Екатеринбург</span>
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div class="city-select__list" id="citySelectList" role="listbox" aria-label="Выбор филиала">
+              <a href="#hero" class="city-select__item is-current" role="option" aria-selected="true">Екатеринбург</a>
+              <a href="https://pervouralsk.grosport.ru" class="city-select__item" role="option" aria-selected="false" rel="noopener" title="перейти на сайт филиала в Первоуральске">Первоуральск</a>
+            </div>
+          </div>
+        </div>
         <a href="#form" class="btn btn--accent header__cta">Записаться</a>
       </div>
 

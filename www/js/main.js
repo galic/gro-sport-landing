@@ -33,6 +33,36 @@
     if (e.target.tagName === 'A') closeMenu();
   });
 
+  /* ---------- Выбор филиала в хедере ---------- */
+  var citySelect = document.getElementById('citySelect');
+  var cityToggle = document.getElementById('citySelectToggle');
+
+  if (citySelect && cityToggle) {
+    var closeCitySelect = function () {
+      citySelect.classList.remove('open');
+      cityToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    cityToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !citySelect.classList.contains('open');
+      citySelect.classList.toggle('open', open);
+      cityToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    citySelect.addEventListener('click', function (e) {
+      if (e.target.closest('.city-select__item')) closeCitySelect();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!citySelect.contains(e.target)) closeCitySelect();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeCitySelect();
+    });
+  }
+
   /* ---------- Hero-слайдер ---------- */
   var slides = document.querySelectorAll('.hero__slide');
   var dotsWrap = document.getElementById('heroDots');
